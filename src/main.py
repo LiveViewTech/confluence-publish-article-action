@@ -17,13 +17,12 @@ for key in ['src', 'pageId', 'cloudId', 'user', 'token']:
     if not value:
         raise Exception(f'Missing value for {key}')
     envs[key] = value
-src, pageId, cloudId, user, token = envs
 
-with open(join(workspace, src)) as f:
+with open(join(workspace, envs['src'])) as f:
     md = f.read()
 
-url = f"https://{cloudId}.atlassian.net/wiki/rest/api/content/{pageId}"
-current = requests.get(url, auth=(user, token)).json()
+url = f"https://{envs['cloudId']}.atlassian.net/wiki/rest/api/content/{envs['pageId']}"
+current = requests.get(url, auth=(envs['user'], envs['token'])).json()
 html = markdown(md, extensions=[GithubFlavoredMarkdownExtension()])
 content = {
     'id': current['id'],
@@ -38,6 +37,6 @@ content = {
     }
 }
 
-updated = requests.put(url, json=content, auth=(user, token)).json()
+updated = requests.put(url, json=content, auth=(envs['user'], envs['token'])).json()
 link = updated['_links']['base'] + updated['_links']['webui']
 print(f'Uploaded content successfully to page {link}')
