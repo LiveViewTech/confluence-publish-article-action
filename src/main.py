@@ -12,16 +12,16 @@ if not workspace:
     raise Exception('No workspace is set')
 
 envs: Dict[str, str] = {}
-for key in ['src', 'pageId', 'cloudId', 'user', 'token']:
+for key in ['from', 'to', 'cloud', 'user', 'token']:
     value = environ.get(f'INPUT_{key.upper()}')
     if not value:
         raise Exception(f'Missing value for {key}')
     envs[key] = value
 
-with open(join(workspace, envs['src'])) as f:
+with open(join(workspace, envs['from'])) as f:
     md = f.read()
 
-url = f"https://{envs['cloudId']}.atlassian.net/wiki/rest/api/content/{envs['pageId']}"
+url = f"https://{envs['cloud']}.atlassian.net/wiki/rest/api/content/{envs['to']}"
 current = requests.get(url, auth=(envs['user'], envs['token'])).json()
 html = markdown(md, extensions=[GithubFlavoredMarkdownExtension()])
 content = {
