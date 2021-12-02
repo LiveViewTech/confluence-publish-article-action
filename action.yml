@@ -4,14 +4,14 @@ runs:
   using: docker
   image: Dockerfile
 inputs:
-  src:
-    description: Path to the markdown file. Relative to root of repository
+  from:
+    description: Path to the markdown file
     required: true
-  pageId:
-    description: The page ID in Confluence
+  to:
+    description: The page id in Confluence
     required: true
-  cloudId:
-    description: Atlassian Cloud ID
+  cloud:
+    description: Atlassian Cloud id
     required: true
   user:
     description: Username of the token user
