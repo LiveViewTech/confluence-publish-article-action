@@ -1,0 +1,21 @@
+name: confluence-publish-article
+description: Copy content of a markdown file to a confluence site
+runs:
+  using: docker
+  image: Dockerfile
+inputs:
+  src:
+    description: Path to the markdown file. Relative to root of repository
+    required: true
+  pageId:
+    description: The page ID in Confluence
+    required: true
+  cloudId:
+    description: Atlassian Cloud ID
+    required: true
+  user:
+    description: Username of the token user
+    required: true
+  token:
+    description: Token for the user
+    required: true
