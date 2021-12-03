@@ -19,3 +19,6 @@ inputs:
   token:
     description: Token for the user
     required: true
+outputs:
+  url:
+    description: Url of the Confluence article
